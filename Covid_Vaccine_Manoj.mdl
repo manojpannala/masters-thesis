@@ -1,0 +1,210 @@
+{UTF-8}
+Clinic Cure Rate=
+	0.02
+	~	 [0,0.1,0.001]
+	~		|
+
+Clinic Vaccination Rate=
+	0.02
+	~	 [0,0.1,0.001]
+	~		|
+
+Cure=
+	Sick*Clinic Cure Rate
+	~	
+	~		|
+
+Dead= INTEG (
+	Death,
+		0)
+	~	
+	~		|
+
+Death=
+	Death Rate*Sick
+	~	
+	~		|
+
+Death Rate=
+	0.01
+	~	 [0,0.1,0.001]
+	~		|
+
+Infection=
+	Unvaccinated*Sick*Infection of Unvaccinated Rate
+	~	
+	~		|
+
+Infection of Unvaccinated Rate=
+	0.01
+	~	 [0,0.01,0.001]
+	~		|
+
+Infection of Vaccinated Rate=
+	0.005
+	~	 [0,0.01,0.001]
+	~		|
+
+Infection while Vaccinated=
+	Vaccinated*Sick*Infection of Vaccinated Rate
+	~	
+	~		|
+
+Sick= INTEG (
+	Infection+Infection while Vaccinated-Cure-Death,
+		1)
+	~	
+	~		|
+
+Unvaccinated= INTEG (
+	-Infection-Vaccination,
+		99)
+	~	
+	~		|
+
+Vaccinated= INTEG (
+	Cure+Vaccination-Infection while Vaccinated,
+		0)
+	~	
+	~		|
+
+Vaccination=
+	Unvaccinated*Clinic Vaccination Rate
+	~	
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 100
+	~	Days
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Days
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 
+        TIME STEP
+	~	Days [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 0.0625
+	~	Days [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|72,72,100,0
+10,1,Unvaccinated,316,204,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,2,Vaccinated,316,52,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,3,Sick,515,204,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+10,4,Dead,700,203,40,20,3,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,5,7,3,4,0,0,22,0,0,0,-1--1--1,,1|(448,204)|
+1,6,7,1,100,0,0,22,0,0,0,-1--1--1,,1|(384,204)|
+11,7,288,415,204,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,8,Infection,415,220,24,8,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,9,11,2,4,0,0,22,0,0,0,-1--1--1,,1|(289,96)|
+1,10,11,1,100,0,0,22,0,0,0,-1--1--1,,1|(289,155)|
+11,11,354,289,124,8,8,33,3,0,0,4,0,0,0,0,0,0,0,0,0
+10,12,Vaccination,335,124,40,9,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,13,15,4,4,0,0,22,0,0,0,-1--1--1,,1|(635,204)|
+1,14,15,3,100,0,0,22,0,0,0,-1--1--1,,1|(577,204)|
+11,15,486,608,204,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,16,Death,608,220,17,8,40,3,0,0,-1,0,0,0,0,0,0,0,0,0
+1,17,19,3,4,0,0,22,0,0,0,-1--1--1,,1|(539,119)|
+1,18,19,2,100,0,0,22,0,0,0,-1--1--1,,1|(443,49)|
+11,19,310,539,49,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,20,Infection while Vaccinated,539,71,43,16,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,21,23,2,4,0,0,22,0,0,0,-1--1--1,,1|(316,97)|
+1,22,23,3,100,0,0,22,0,0,0,-1--1--1,,1|(515,97)|
+11,23,442,424,97,8,8,34,3,0,0,1,0,0,0,0,0,0,0,0,0
+10,24,Cure,424,116,20,9,40,131,0,0,-1,0,0,0,0,0,0,0,0,0
+1,25,1,8,1,0,0,0,0,64,0,-1--1--1,,1|(364,233)|
+1,26,3,8,1,0,0,0,0,64,0,-1--1--1,,1|(456,232)|
+10,27,Infection of Unvaccinated Rate,419,273,49,16,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,28,27,8,1,0,0,0,0,64,0,-1--1--1,,1|(415,243)|
+10,29,Clinic Vaccination Rate,171,124,59,8,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,30,29,12,1,0,0,0,0,64,0,-1--1--1,,1|(256,149)|
+1,31,1,12,1,0,0,0,0,64,0,-1--1--1,,1|(324,165)|
+10,32,Clinic Cure Rate,424,156,43,8,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,33,32,24,1,0,0,0,0,64,0,-1--1--1,,1|(408,128)|
+1,34,3,24,1,0,0,0,0,64,0,-1--1--1,,1|(477,144)|
+10,35,Death Rate,603,273,29,8,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,36,35,16,0,0,0,0,0,64,0,-1--1--1,,1|(604,251)|
+10,37,Infection of Vaccinated Rate,701,59,44,16,8,3,0,0,0,0,0,0,0,0,0,0,0,0
+1,38,37,20,0,0,0,0,0,64,0,-1--1--1,,1|(625,65)|
+1,39,3,16,1,0,0,0,0,64,0,-1--1--1,,1|(559,225)|
+1,40,2,20,1,0,0,0,0,64,0,-1--1--1,,1|(419,59)|
+1,41,3,20,1,0,0,0,0,64,0,-1--1--1,,1|(577,140)|
+12,42,0,964,180,152,152,3,44,0,0,1,0,0,0,0,0,0,0,0,0
+Population
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 2
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|255-255-255|72,72,100,0
+///---\\\
+:GRAPH Population
+:TITLE Population
+:X-AXIS Time
+:X-MIN 0
+:X-MAX 100
+:SCALE
+:VAR Unvaccinated|Unvaccinated
+:Y-MIN 0
+:Y-MAX 100
+:SCALE
+:VAR Sick|Sick
+:Y-MIN 0
+:Y-MAX 100
+:SCALE
+:VAR Vaccinated|Vaccinated
+:Y-MIN 0
+:Y-MAX 100
+:SCALE
+:VAR Dead|Dead
+:Y-MIN 0
+:Y-MAX 100
+:L<%^E!@
+1:Current.vdfx
+4:Time
+5:Clinic Vaccination Rate
+9:Current
+19:100,0
+24:0
+25:100
+26:100
+23:0
+15:0,0,0,0,0,0
+27:0,
+34:0,
+42:0
+72:0
+73:0
+35:Date
+36:YYYY-MM-DD
+37:2000
+38:1
+39:1
+40:4
+41:0
+95:0
+96:0
+77:0
+78:0
+93:0
+94:0
+92:0
+91:0
+90:0
+87:0
+75:
+43:
